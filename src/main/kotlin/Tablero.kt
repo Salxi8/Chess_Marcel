@@ -10,44 +10,10 @@ class Tablero(var turnoBlancoONegro: Boolean) {
 
 
     init {
-        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
 
-        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
-            tablero.add(arrayListOf())
-            for (j in 0 until numColumnas) {
-                // ====================================
-                // CREO LAS FICHAS DEL TABLERO
-                /*if (i == 6 && j == 5) { // CREO PEON BLANCO
-                    tablero[i].add(Peon(true, Posicion(i, j), false))
-                } else if (i == 1 && j == 5) { // CREO PEON NEGRO
-                    tablero[i].add(Peon(false, Posicion(i, j), false))
-                } else if (i == 0 && (j == 0 || j == 7)) { // CREO TORRE BLANCA
-                    tablero[i].add(Torre(true, Posicion(i, j), false))
-                } else if (i == 7 && (j == 0 || j == 7)) { // CREO TORRE NEGRA
-                    tablero[i].add(Torre(false, Posicion(i, j), false))
-                } else if (i == 0 && (j == 1 || j == 6)) { // CREO CABALLO BLANCO
-                    tablero[i].add(Caballo(true, Posicion(i, j), false))
-                } else if (i == 7 && (j == 1 || j == 6)) { // CREO CABALLO NEGRO
-                    tablero[i].add(Caballo(false, Posicion(i, j), false))
-                } else if (i == 0 && (j == 2 || j == 5)) { // CREO ALFIL BLANCO
-                    tablero[i].add(Alfil(true, Posicion(i, j), false))
-                } else if (i == 7 && (j == 2 || j == 5)) { // CREO ALFIL NEGRO
-                    tablero[i].add(Alfil(false, Posicion(i, j), false))
-                } else */if (i == 7 && j == 4) { // CREO REINA BLANCA
-                    tablero[i].add(Reina(true, Posicion(i, j), false))
-                } else if (i == 0 && j == 1) { // CREO REINA NEGRA
-                    tablero[i].add(Reina(false, Posicion(i, j), false))
-                } else if (i == 0 && j == 7) { // CREO REI BLANCO
-                    tablero[i].add(Rei(true, Posicion(i, j), false))
-                } else if (i == 2 && j == 7) { // CREO REI NEGRO
-                    tablero[i].add(Rei(false, Posicion(i, j), false))
-                }else {
-                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
-                }
-            }
-            println()
-        }
-        this.tablero = tablero
+
+
+        this.tablero = distNormal()
     }
 
 
@@ -677,6 +643,135 @@ class Tablero(var turnoBlancoONegro: Boolean) {
 
         return posicionesPosibles
     }
+
+    // PRESENTACIÓ
+
+    // NORMAL
+
+    fun distNormal(): ArrayList<ArrayList<Ficha?>>{
+        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
+
+        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
+            tablero.add(arrayListOf())
+            for (j in 0 until numColumnas) {
+                // ====================================
+                // CREO LAS FICHAS DEL TABLERO
+                if (i == 1) { // CREO PEON BLANCO
+                    tablero[i].add(Peon(true, Posicion(i, j), false))
+                } else if (i == 6) { // CREO PEON NEGRO
+                    tablero[i].add(Peon(false, Posicion(i, j), false))
+                } else if (i == 0 && (j == 0 || j == 7)) { // CREO TORRE BLANCA
+                    tablero[i].add(Torre(true, Posicion(i, j), false))
+                } else if (i == 7 && (j == 0 || j == 7)) { // CREO TORRE NEGRA
+                    tablero[i].add(Torre(false, Posicion(i, j), false))
+                } else if (i == 0 && (j == 1 || j == 6)) { // CREO CABALLO BLANCO
+                    tablero[i].add(Caballo(true, Posicion(i, j), false))
+                } else if (i == 7 && (j == 1 || j == 6)) { // CREO CABALLO NEGRO
+                    tablero[i].add(Caballo(false, Posicion(i, j), false))
+                } else if (i == 0 && (j == 2 || j == 5)) { // CREO ALFIL BLANCO
+                    tablero[i].add(Alfil(true, Posicion(i, j), false))
+                } else if (i == 7 && (j == 2 || j == 5)) { // CREO ALFIL NEGRO
+                    tablero[i].add(Alfil(false, Posicion(i, j), false))
+                } else if (i == 0 && j == 4) { // CREO REINA BLANCA
+                    tablero[i].add(Reina(true, Posicion(i, j), false))
+                } else if (i == 7 && j == 4) { // CREO REINA NEGRA
+                    tablero[i].add(Reina(false, Posicion(i, j), false))
+                } else if (i == 0 && j == 3) { // CREO REI BLANCO
+                    tablero[i].add(Rei(true, Posicion(i, j), false))
+                } else if (i == 7 && j == 3) { // CREO REI NEGRO
+                    tablero[i].add(Rei(false, Posicion(i, j), false))
+                }else {
+                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
+                }
+            }
+            println()
+        }
+
+        return tablero
+    }
+
+
+    fun distJaque(): ArrayList<ArrayList<Ficha?>>{
+        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
+
+        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
+            tablero.add(arrayListOf())
+            for (j in 0 until numColumnas) {
+                // ====================================
+                // CREO LAS FICHAS DEL TABLERO
+               if (i == 0 && (j == 0)) { // CREO TORRE BLANCA
+                    tablero[i].add(Torre(true, Posicion(i, j), false))
+                } else if (i == 3 && (j == 6)) { // CREO CABALLO NEGRO
+                    tablero[i].add(Caballo(false, Posicion(i, j), false))
+                } else if (i == 1 && (j == 3)) { // CREO ALFIL BLANCO
+                    tablero[i].add(Alfil(true, Posicion(i, j), false))
+                } else if (i == 7 && j == 7) { // CREO REINA NEGRA
+                    tablero[i].add(Reina(false, Posicion(i, j), false))
+                } else if (i == 0 && j == 3) { // CREO REI BLANCO
+                    tablero[i].add(Rei(true, Posicion(i, j), false))
+                } else if (i == 7 && j == 3) { // CREO REI NEGRO
+                    tablero[i].add(Rei(false, Posicion(i, j), false))
+                }else {
+                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
+                }
+            }
+            println()
+        }
+
+        return tablero
+    }
+
+    fun distPeones(): ArrayList<ArrayList<Ficha?>>{
+        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
+
+        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
+            tablero.add(arrayListOf())
+            for (j in 0 until numColumnas) {
+                // ====================================
+                // CREO LAS FICHAS DEL TABLERO
+                if (i == 6 && j == 0) { // CREO PEON BLANCO
+                    tablero[i].add(Peon(true, Posicion(i, j), false))
+                } else if (i == 1 && j == 7) { // CREO PEON NEGRO
+                    tablero[i].add(Peon(false, Posicion(i, j), false))
+                } else if (i == 0 && j == 3) { // CREO REI BLANCO
+                    tablero[i].add(Rei(true, Posicion(i, j), false))
+                } else if (i == 7 && j == 3) { // CREO REI NEGRO
+                    tablero[i].add(Rei(false, Posicion(i, j), false))
+                }else {
+                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
+                }
+            }
+            println()
+        }
+
+        return tablero
+    }
+    fun distJaqueMateAhogado(): ArrayList<ArrayList<Ficha?>>{
+        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
+
+        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
+            tablero.add(arrayListOf())
+            for (j in 0 until numColumnas) {
+                // ====================================
+                // CREO LAS FICHAS DEL TABLERO
+                if (i == 6 && j == 5) { // CREO REINA BLANCA
+                    tablero[i].add(Reina(true, Posicion(i, j), false))
+                } else if (i == 5 && j == 0) { // CREO REI BLANCO
+                    tablero[i].add(Rei(true, Posicion(i, j), false))
+                } else if (i == 7 && j == 0) { // CREO REI NEGRO
+                    tablero[i].add(Rei(false, Posicion(i, j), false))
+                }else {
+                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
+                }
+            }
+            println()
+        }
+
+        return tablero
+    }
+
+
+
 
 
 }
