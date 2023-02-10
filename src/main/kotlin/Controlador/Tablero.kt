@@ -243,8 +243,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
             val ficha = this[elem.first, elem.second]
 
             if (ficha is Peon) {
-                for (i in 0..numFilas - 1) {
-                    for (j in 0..numFilas - 1) {
+                for (i in 0 until numFilas) {
+                    for (j in 0 until numFilas) {
                         if (ficha.posibilidadesMovimientoPeon(i, j, this)) {
                             if (isKingInCheck(rei)) {
                                 val elementoInvadido = tablero[i][j]
@@ -273,8 +273,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                     }
                 }
             } else if (ficha is Reina) {
-                for (i in 0..numFilas - 1) {
-                    for (j in 0..numFilas - 1) {
+                for (i in 0 until numFilas) {
+                    for (j in 0 until numFilas) {
                         if (ficha.posibilidadesMovimientoReina(i, j, this)) {
                             if (isKingInCheck(rei)) {
                                 val elementoInvadido = tablero[i][j]
@@ -303,8 +303,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                     }
                 }
             } else if (ficha is Torre) {
-                for (i in 0..numFilas - 1) {
-                    for (j in 0..numFilas - 1) {
+                for (i in 0 until numFilas) {
+                    for (j in 0 until numFilas) {
                         if (ficha.posibilidadesMovimientoTorre(i, j, this)) {
                             if (isKingInCheck(rei)) {
                                 val elementoInvadido = tablero[i][j]
@@ -333,8 +333,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                     }
                 }
             } else if (ficha is Caballo) {
-                for (i in 0..numFilas - 1) {
-                    for (j in 0..numFilas - 1) {
+                for (i in 0 until numFilas) {
+                    for (j in 0 until numFilas) {
                         if (ficha.posibilidadesMovimientoCaballo(i, j, this)) {
                             if (isKingInCheck(rei)) {
                                 val elementoInvadido = tablero[i][j]
@@ -363,8 +363,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                     }
                 }
             } else if (ficha is Alfil) {
-                for (i in 0..numFilas - 1) {
-                    for (j in 0..numFilas - 1) {
+                for (i in 0 until numFilas) {
+                    for (j in 0 until numFilas) {
                         if (ficha.posibilidadesMovimientoAlfil(i, j, this)) {
                             if (isKingInCheck(rei)) {
                                 val elementoInvadido = tablero[i][j]
@@ -393,8 +393,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                     }
                 }
             } else if (ficha is Rei) {
-                for (i in 0..numFilas - 1) {
-                    for (j in 0..numFilas - 1) {
+                for (i in 0 until numFilas) {
+                    for (j in 0 until numFilas) {
                         if (ficha.posibilidadesMovimientoRei(i, j, this)) {
                             if (isKingInCheck(rei)) {
 
@@ -446,8 +446,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
         val ficha = this[posicionY, posicionX]
 
         if (ficha is Peon) {
-            for (i in 0..numFilas - 1) {
-                for (j in 0..numFilas - 1) {
+            for (i in 0 until numFilas) {
+                for (j in 0 until numFilas) {
                     if (ficha.posibilidadesMovimientoPeon(i, j, this)) {
                         if (isKingInCheck(rei)) {
                             val elementoInvadido = tablero[i][j]
@@ -476,8 +476,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                 }
             }
         } else if (ficha is Reina) {
-            for (i in 0..numFilas - 1) {
-                for (j in 0..numFilas - 1) {
+            for (i in 0 until numFilas) {
+                for (j in 0 until numFilas) {
                     if (ficha.posibilidadesMovimientoReina(i, j, this)) {
                         if (isKingInCheck(rei)) {
                             val elementoInvadido = tablero[i][j]
@@ -506,8 +506,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                 }
             }
         } else if (ficha is Alfil) {
-            for (i in 0..numFilas - 1) {
-                for (j in 0..numFilas - 1) {
+            for (i in 0 until numFilas) {
+                for (j in 0 until numFilas) {
                     if (ficha.posibilidadesMovimientoAlfil(i, j, this)) {
                         if (isKingInCheck(rei)) {
                             val elementoInvadido = tablero[i][j]
@@ -537,8 +537,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
             }
         }
         if (ficha is Caballo) {
-            for (i in 0..numFilas - 1) {
-                for (j in 0..numFilas - 1) {
+            for (i in 0 until numFilas) {
+                for (j in 0 until numFilas) {
                     if (ficha.posibilidadesMovimientoCaballo(i, j, this)) {
                         if (isKingInCheck(rei)) {
                             val elementoInvadido = tablero[i][j]
@@ -568,8 +568,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
             }
         }
         if (ficha is Torre) {
-            for (i in 0..numFilas - 1) {
-                for (j in 0..numFilas - 1) {
+            for (i in 0 until numFilas) {
+                for (j in 0 until numFilas) {
                     if (ficha.posibilidadesMovimientoTorre(i, j, this)) {
                         if (isKingInCheck(rei)) {
                             val elementoInvadido = tablero[i][j]
@@ -598,8 +598,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                 }
             }
         } else if (ficha is Rei) {
-            for (i in 0..numFilas - 1) {
-                for (j in 0..numFilas - 1) {
+            for (i in 0 until numFilas) {
+                for (j in 0 until numFilas) {
                     if (ficha.posibilidadesMovimientoRei(i, j, this)) {
                         if (isKingInCheck(rei)) {
 

@@ -1,32 +1,33 @@
-import Controlador.Pantallas
+import Controlador.Pantalla
 import Controlador.Tablero
 
+
 fun main(){
-    val pantalla = Pantallas(Pantallas.Escenas.ENTRADA)
+    val pantalla = Pantalla()
     val tablero = Tablero(true)
     var jaqueMate: Boolean
 
 
     do { // BUCLE DE DENTRO DEL JUEGO
 
-        if (pantalla.escenas == Pantallas.Escenas.ENTRADA) { // ESCENA ENTRADA
+        if (pantalla.escenas == Pantalla.Escenas.ENTRADA) { // ESCENA ENTRADA
 
             pantalla.escenaEntrada()
-            pantalla.escenas = Pantallas.Escenas.MENU
+            pantalla.escenas = Pantalla.Escenas.MENU
         }
-        else if (pantalla.escenas == Pantallas.Escenas.MENU){ // ESCENA MENU
+        else if (pantalla.escenas == Pantalla.Escenas.MENU){ // ESCENA MENU
 
             when (pantalla.escenaMenu()) {
                 1 -> {
-                    pantalla.escenas = Pantallas.Escenas.INGAME
+                    pantalla.escenas = Pantalla.Escenas.INGAME
                 }
                 2 -> {
-                    pantalla.escenas = Pantallas.Escenas.EXIT
+                    pantalla.escenas = Pantalla.Escenas.EXIT
                 }
             }
 
         }
-        if (pantalla.escenas == Pantallas.Escenas.INGAME) {
+        if (pantalla.escenas == Pantalla.Escenas.INGAME) {
             tablero.printarTabero()
 
             jaqueMate = tablero.actualizarTablero()
@@ -38,10 +39,10 @@ fun main(){
             tablero.turnoBlancoONegro = !tablero.turnoBlancoONegro // CAMBIAR TURNO
 
             if (jaqueMate){
-                pantalla.escenas = Pantallas.Escenas.EXIT
+                pantalla.escenas = Pantalla.Escenas.EXIT
             }
         }
-    }while(pantalla.escenas != Pantallas.Escenas.EXIT)
+    }while(pantalla.escenas != Pantalla.Escenas.EXIT)
     println("=============================")
     println("¡ESPERAMOS QUE VUELVA PRONTO!")
     println("=============================")

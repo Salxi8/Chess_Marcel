@@ -288,7 +288,7 @@ class Rei(blancaONegra: Boolean, posicion: Posicion, seleccionada: Boolean) : Fi
     }
 
     // ES POT SIMPLIFICAR EL BUCLE
-    fun isKingGoingToBeInCheck(movimentYFinal: Int, movimentXFinal: Int, tablero: Tablero): Boolean { // PER SI EL MOVIMENT QUE FARÁ EL REI NO ES POSIBLE PQ ES JAQUE
+    private fun isKingGoingToBeInCheck(movimentYFinal: Int, movimentXFinal: Int, tablero: Tablero): Boolean { // PER SI EL MOVIMENT QUE FARÁ EL REI NO ES POSIBLE PQ ES JAQUE
         if (tablero.turnoBlancoONegro) { // CUANDO AL REI BLANCO HACE EL MOVIMIENTO COMPROBAR QUE EN LA POSICIÓN QUE VA NO LO HACEN JAQUE
             for (i in 0 until tablero.numFilas) { // RECORRO ALL EL TABLERO
                 for (j in 0 until tablero.numColumnas) {

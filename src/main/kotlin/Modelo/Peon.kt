@@ -153,7 +153,7 @@ class Peon(blancaONegra: Boolean, posicion: Posicion, seleccionada: Boolean) : F
     }
 
 
-    fun intercambioPeonCoronacion(posicion: Posicion): Ficha? {
+    private fun intercambioPeonCoronacion(posicion: Posicion): Ficha? {
 
         println("==========================================")
         println("SU PEÓN HA LLEGADO A LA FILA DE CORONACIÓN")

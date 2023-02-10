@@ -32,8 +32,8 @@ open class Ficha (val blancaONegra: Boolean, val posicionFicha: Posicion, var se
     // ESTAS DOS QUIZAS EN TABLERO MEJOR
     fun convertorLetraNumeroANumero(posicionY: Int, posicionX: Char): Pair<Int, Int>{
 
-        val listaLetrasMay = listOf<Char>('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
-        val listaLetrasMin = listOf<Char>('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
+        val listaLetrasMay = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+        val listaLetrasMin = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 
         val posicionYTransformada = posicionY - 1 //  FILAS
         var posicionXTransformada = -1
@@ -49,7 +49,7 @@ open class Ficha (val blancaONegra: Boolean, val posicionFicha: Posicion, var se
 
     fun convertorNumeroALetraNumero(posicionY: Int, posicionX: Int): Pair<Int, Char>{
 
-        val listaLetras = listOf<Char>('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+        val listaLetras = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 
         val posicionYTransformada = posicionY + 1 //  FILAS
         var posicionXTransformada = 'Z'
@@ -65,7 +65,7 @@ open class Ficha (val blancaONegra: Boolean, val posicionFicha: Posicion, var se
 
     // =======================================================
 
-    fun seleccionarFicha(tablero: Tablero): Pair<Int, Int>{
+    private fun seleccionarFicha(tablero: Tablero): Pair<Int, Int>{
 
         var posInicialY: Int
         var posInicialX: Int
