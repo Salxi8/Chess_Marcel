@@ -1,3 +1,7 @@
+package Controlador
+
+import Modelo.*
+
 class Tablero(var turnoBlancoONegro: Boolean) {
 
     val tablero: List<ArrayList<Ficha?>> // TABLERO DE AJEDREZ
@@ -11,9 +15,7 @@ class Tablero(var turnoBlancoONegro: Boolean) {
 
     init {
 
-
-
-        this.tablero = jaquePastor()
+        this.tablero = distNormal()
     }
 
 
@@ -44,20 +46,20 @@ class Tablero(var turnoBlancoONegro: Boolean) {
         var listaNumeros = 1
         val listaLetras = "..[A][B][C][D][E][F][G][H].."
 
-        printTurnoBlancoONegro()
-        print("\u001B[43m\u001B[30m$listaLetras\u001B[0m ")
+        printTurnoBlancoONegro() // PRINTA SI ES EL TORN DE LES NEGRES O LES BLANQUES
+        print("\u001B[43m\u001B[30m$listaLetras\u001B[0m ") // PRINTA LA LLISTE DE LAS LLETRES "..[A][B][C][D][E][F][G][H].."
         println()
-        for (i in 0 until numFilas) { // AÑADO DOS MAS PARAS PODER MOSTRAR POR PANTALLA LAS LETRAS Y LOS NÚMEROS DEL TABLERO
-            print("\u001B[43m\u001B[30m[$listaNumeros]\u001B[0m ")
+        for (i in 0 until numFilas) { // RECORRO EL TABLERO
+            print("\u001B[43m\u001B[30m[$listaNumeros]\u001B[0m ") // VOY PRINTANDO EL NÚMERO POR CADA FILA QUE PASAMOS
             for (j in 0 until numColumnas) {
                 // PINTO LAS FICHAS DEL TABLERO
                 if (tablero[i][j] is Peon) {
-                    if ((tablero[i][j]?.blanca_o_negra) == true) {
+                    if ((tablero[i][j]?.blancaONegra) == true) {
                         if ((tablero[i][j]?.seleccionada) == true) {
-                            print("\u001B[43m\u001B[30m\u001B[4m♙\u001B[0m ") // COLOR ROJO
+                            print("\u001B[43m\u001B[30m\u001B[4m♙\u001B[0m ") // COLOR ROJO SELECCIONADA
 
                         } else
-                            print("\u001B[31m♙\u001B[0m ")
+                            print("\u001B[31m♙\u001B[0m ") // COLOR ROJO SIN SELECCIONAR
                     } else {
                         if ((tablero[i][j]?.seleccionada) == true)
                             print("\u001B[43m\u001B[30m\u001B[7m\u001B[4m♙\u001B[0m ")
@@ -65,7 +67,7 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                             print("\u001B[34m♙\u001B[0m ")
                     }
                 } else if (tablero[i][j] is Torre) {
-                    if ((tablero[i][j]?.blanca_o_negra) == true) {
+                    if ((tablero[i][j]?.blancaONegra) == true) {
                         if ((tablero[i][j]?.seleccionada) == true)
                             print("\u001B[43m\u001B[30m\u001B[4m♜\u001B[0m ") // COLOR ROJO
                         else
@@ -77,7 +79,7 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                             print("\u001B[34m♜\u001B[0m ")
                     }
                 } else if (tablero[i][j] is Caballo) {
-                    if ((tablero[i][j]?.blanca_o_negra) == true) {
+                    if ((tablero[i][j]?.blancaONegra) == true) {
                         if ((tablero[i][j]?.seleccionada) == true)
                             print("\u001B[43m\u001B[30m\u001B[4m♞\u001B[0m ") // COLOR ROJO
                         else
@@ -89,7 +91,7 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                             print("\u001B[34m♞\u001B[0m ")
                     }
                 } else if (tablero[i][j] is Alfil) {
-                    if ((tablero[i][j]?.blanca_o_negra) == true) {
+                    if ((tablero[i][j]?.blancaONegra) == true) {
                         if ((tablero[i][j]?.seleccionada) == true)
                             print("\u001B[43m\u001B[30m\u001B[4m♝\u001B[0m ") // COLOR ROJO
                         else
@@ -101,7 +103,7 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                             print("\u001B[34m♝\u001B[0m ")
                     }
                 } else if (tablero[i][j] is Reina) {
-                    if ((tablero[i][j]?.blanca_o_negra) == true) {
+                    if ((tablero[i][j]?.blancaONegra) == true) {
                         if ((tablero[i][j]?.seleccionada) == true)
                             print("\u001B[43m\u001B[30m\u001B[4m♛\u001B[0m ") // COLOR ROJO
                         else
@@ -113,7 +115,7 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                             print("\u001B[34m♛\u001B[0m ")
                     }
                 } else if (tablero[i][j] is Rei) {
-                    if ((tablero[i][j]?.blanca_o_negra) == true) {
+                    if ((tablero[i][j]?.blancaONegra) == true) {
                         if ((tablero[i][j]?.seleccionada) == true)
                             print("\u001B[43m\u001B[30m\u001B[4m♚\u001B[0m ") // COLOR ROJO
                         else
@@ -165,27 +167,27 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                 for (j in 0 until numColumnas) {
                     val ficha = this[i, j]
                     if (ficha != null) {
-                        if (ficha is Peon && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoPeon(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        if (ficha is Peon && !ficha.blancaONegra && ficha.posibilidadesMovimientoPeon(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Torre && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoTorre(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Torre && !ficha.blancaONegra && ficha.posibilidadesMovimientoTorre(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Alfil && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoAlfil(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Alfil && !ficha.blancaONegra && ficha.posibilidadesMovimientoAlfil(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Caballo && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoCaballo(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Caballo && !ficha.blancaONegra && ficha.posibilidadesMovimientoCaballo(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Reina && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoReina(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Reina && !ficha.blancaONegra && ficha.posibilidadesMovimientoReina(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Rei && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoRei(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Rei && !ficha.blancaONegra && ficha.posibilidadesMovimientoRei(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
@@ -198,27 +200,27 @@ class Tablero(var turnoBlancoONegro: Boolean) {
                 for (j in 0 until numColumnas) {
                     val ficha = this[i, j]
                     if (ficha != null) {
-                        if (ficha is Peon && ficha.blanca_o_negra && ficha.posibilidadesMovimientoPeon(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        if (ficha is Peon && ficha.blancaONegra && ficha.posibilidadesMovimientoPeon(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Torre && ficha.blanca_o_negra && ficha.posibilidadesMovimientoTorre(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Torre && ficha.blancaONegra && ficha.posibilidadesMovimientoTorre(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Alfil && ficha.blanca_o_negra && ficha.posibilidadesMovimientoAlfil(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Alfil && ficha.blancaONegra && ficha.posibilidadesMovimientoAlfil(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Caballo && ficha.blanca_o_negra && ficha.posibilidadesMovimientoCaballo(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Caballo && ficha.blancaONegra && ficha.posibilidadesMovimientoCaballo(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Reina && ficha.blanca_o_negra && ficha.posibilidadesMovimientoReina(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Reina && ficha.blancaONegra && ficha.posibilidadesMovimientoReina(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
-                        } else if (ficha is Rei && ficha.blanca_o_negra && ficha.posibilidadesMovimientoRei(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
+                        } else if (ficha is Rei && ficha.blancaONegra && ficha.posibilidadesMovimientoRei(rei.posicionFicha.fila, rei.posicionFicha.columna, this)) {
 
                             return true
 
@@ -644,11 +646,8 @@ class Tablero(var turnoBlancoONegro: Boolean) {
         return posicionesPosibles
     }
 
-    // PRESENTACIÓ
-
     // NORMAL
-
-    fun distNormal(): ArrayList<ArrayList<Ficha?>>{
+    private fun distNormal(): ArrayList<ArrayList<Ficha?>>{
         val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
 
         for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
@@ -689,132 +688,6 @@ class Tablero(var turnoBlancoONegro: Boolean) {
 
         return tablero
     }
-
-
-    fun distJaque(): ArrayList<ArrayList<Ficha?>>{
-        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
-
-        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
-            tablero.add(arrayListOf())
-            for (j in 0 until numColumnas) {
-                // ====================================
-                // CREO LAS FICHAS DEL TABLERO
-               if (i == 0 && (j == 0)) { // CREO TORRE BLANCA
-                    tablero[i].add(Torre(true, Posicion(i, j), false))
-                } else if (i == 3 && (j == 6)) { // CREO CABALLO NEGRO
-                    tablero[i].add(Caballo(false, Posicion(i, j), false))
-                } else if (i == 1 && (j == 3)) { // CREO ALFIL BLANCO
-                    tablero[i].add(Alfil(true, Posicion(i, j), false))
-                } else if (i == 7 && j == 7) { // CREO REINA NEGRA
-                    tablero[i].add(Reina(false, Posicion(i, j), false))
-                } else if (i == 0 && j == 3) { // CREO REI BLANCO
-                    tablero[i].add(Rei(true, Posicion(i, j), false))
-                } else if (i == 7 && j == 3) { // CREO REI NEGRO
-                    tablero[i].add(Rei(false, Posicion(i, j), false))
-                }else {
-                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
-                }
-            }
-            println()
-        }
-
-        return tablero
-    }
-
-    fun distPeones(): ArrayList<ArrayList<Ficha?>>{
-        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
-
-        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
-            tablero.add(arrayListOf())
-            for (j in 0 until numColumnas) {
-                // ====================================
-                // CREO LAS FICHAS DEL TABLERO
-                if (i == 6 && j == 0) { // CREO PEON BLANCO
-                    tablero[i].add(Peon(true, Posicion(i, j), false))
-                } else if (i == 1 && j == 7) { // CREO PEON NEGRO
-                    tablero[i].add(Peon(false, Posicion(i, j), false))
-                } else if (i == 0 && j == 3) { // CREO REI BLANCO
-                    tablero[i].add(Rei(true, Posicion(i, j), false))
-                } else if (i == 7 && j == 3) { // CREO REI NEGRO
-                    tablero[i].add(Rei(false, Posicion(i, j), false))
-                }else {
-                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
-                }
-            }
-            println()
-        }
-
-        return tablero
-    }
-    fun distJaqueMateAhogado(): ArrayList<ArrayList<Ficha?>>{
-        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
-
-        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
-            tablero.add(arrayListOf())
-            for (j in 0 until numColumnas) {
-                // ====================================
-                // CREO LAS FICHAS DEL TABLERO
-                if (i == 6 && j == 5) { // CREO REINA BLANCA
-                    tablero[i].add(Reina(true, Posicion(i, j), false))
-                } else if (i == 5 && j == 0) { // CREO REI BLANCO
-                    tablero[i].add(Rei(true, Posicion(i, j), false))
-                } else if (i == 7 && j == 0) { // CREO REI NEGRO
-                    tablero[i].add(Rei(false, Posicion(i, j), false))
-                }else {
-                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
-                }
-            }
-            println()
-        }
-
-        return tablero
-    }
-
-
-    fun jaquePastor(): ArrayList<ArrayList<Ficha?>>{
-        val tablero = arrayListOf(arrayListOf<Ficha?>()) // TABLERO QUE SE USARA DURANTE TODO EL JUEGO
-
-        for (i in 0 until numFilas) { // INICIALIZAMOS EL TABLERO CON LAS FICHAS CORRESPONDIENTES
-            tablero.add(arrayListOf())
-            for (j in 0 until numColumnas) {
-                // ====================================
-                // CREO LAS FICHAS DEL TABLERO
-                if (i == 1) { // CREO PEON BLANCO
-                    tablero[i].add(Peon(true, Posicion(i, j), false))
-                } else if (i == 6) { // CREO PEON NEGRO
-                    tablero[i].add(Peon(false, Posicion(i, j), false))
-                } else if (i == 0 && (j == 0 || j == 7)) { // CREO TORRE BLANCA
-                    tablero[i].add(Torre(true, Posicion(i, j), false))
-                } else if (i == 7 && (j == 0 || j == 7)) { // CREO TORRE NEGRA
-                    tablero[i].add(Torre(false, Posicion(i, j), false))
-                } else if (i == 0 && (j == 1 || j == 6)) { // CREO CABALLO BLANCO
-                    tablero[i].add(Caballo(true, Posicion(i, j), false))
-                } else if (i == 7 && (j == 1 || j == 6)) { // CREO CABALLO NEGRO
-                    tablero[i].add(Caballo(false, Posicion(i, j), false))
-                } else if (i == 3 && (j == 5)) { // CREO ALFIL BLANCO
-                    tablero[i].add(Alfil(true, Posicion(i, j), false))
-                } else if (i == 7 && (j == 2 || j == 5)) { // CREO ALFIL NEGRO
-                    tablero[i].add(Alfil(false, Posicion(i, j), false))
-                } else if (i == 2 && j == 2) { // CREO REINA BLANCA
-                    tablero[i].add(Reina(true, Posicion(i, j), false))
-                } else if (i == 7 && j == 4) { // CREO REINA NEGRA
-                    tablero[i].add(Reina(false, Posicion(i, j), false))
-                } else if (i == 0 && j == 3) { // CREO REI BLANCO
-                    tablero[i].add(Rei(true, Posicion(i, j), false))
-                } else if (i == 7 && j == 3) { // CREO REI NEGRO
-                    tablero[i].add(Rei(false, Posicion(i, j), false))
-                }else {
-                    tablero[i].add(null) // RESTO DE POSICIONES EN LAS CUÁLES NO HAY FICHAS
-                }
-            }
-            println()
-        }
-
-        return tablero
-    }
-
-
-
 
 }
 

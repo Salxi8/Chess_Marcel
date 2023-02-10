@@ -1,4 +1,9 @@
-open class Ficha (val blanca_o_negra: Boolean, val posicionFicha: Posicion, var seleccionada: Boolean){
+package Modelo
+
+import Controlador.Posicion
+import Controlador.Tablero
+
+open class Ficha (val blancaONegra: Boolean, val posicionFicha: Posicion, var seleccionada: Boolean){
 
     fun piezasQueQuedanEnElTablero(tablero: Tablero): ArrayList<Pair<Int, Int>> {
         val posicionesPosibles = arrayListOf<Pair<Int, Int>>()
@@ -6,7 +11,7 @@ open class Ficha (val blanca_o_negra: Boolean, val posicionFicha: Posicion, var 
         if (tablero.turnoBlancoONegro) {
             for (i in 0 until tablero.numFilas) {
                 for (j in 0 until tablero.numColumnas) {
-                    if (tablero.tablero[i][j] is Ficha && tablero.tablero[i][j]?.blanca_o_negra == true) {
+                    if (tablero.tablero[i][j] is Ficha && tablero.tablero[i][j]?.blancaONegra == true) {
                         posicionesPosibles.add(Pair(i, j))
                     }
                 }
@@ -14,7 +19,7 @@ open class Ficha (val blanca_o_negra: Boolean, val posicionFicha: Posicion, var 
         } else {
             for (i in 0 until tablero.numFilas) {
                 for (j in 0 until tablero.numColumnas) {
-                    if (tablero.tablero[i][j] is Ficha && tablero.tablero[i][j]?.blanca_o_negra == false) {
+                    if (tablero.tablero[i][j] is Ficha && tablero.tablero[i][j]?.blancaONegra == false) {
                         posicionesPosibles.add(Pair(i, j))
                     }
                 }
@@ -80,13 +85,13 @@ open class Ficha (val blanca_o_negra: Boolean, val posicionFicha: Posicion, var 
                 println("La casilla [${posInicialYAux}, ${posInicialXAux}] no es una casilla válida dentro del tablero de ajedrez")
             } else if (tablero.tablero[posInicialY][posInicialX] == null) { // WARNING DE QUE LA POSICIÓN SELECCIONADA FORMA PARTE DEL TABLERO PERO NO CONTIENE NINGUNA FICHA
                 println("En la casilla [${posInicialYAux}, ${posInicialXAux}] no se encuentra ninguna ficha")
-            } else if (tablero.tablero[posInicialY][posInicialX]?.blanca_o_negra != tablero.turnoBlancoONegro) { // WARNING DE QUE LA POSICIÓN SELECCIONADA FORMA PARTE DEL TABLERO,
+            } else if (tablero.tablero[posInicialY][posInicialX]?.blancaONegra != tablero.turnoBlancoONegro) { // WARNING DE QUE LA POSICIÓN SELECCIONADA FORMA PARTE DEL TABLERO,
                 if (tablero.turnoBlancoONegro)                                                // PERO ESTA FICHA ES LA DEL OPONENTE
                     println("La casilla [${posInicialYAux}, ${posInicialXAux}] no corresponde a ninguna ficha BLANCA")
                 else
                     println("La casilla [${posInicialYAux}, ${posInicialXAux}] no corresponde a ninguna ficha NEGRA")
             }
-        } while ((posInicialX < 0 || posInicialX > 7) || (posInicialY < 0 || posInicialY > 7) || tablero.tablero[posInicialY][posInicialX] == null || (tablero.tablero[posInicialY][posInicialX]?.blanca_o_negra != tablero.turnoBlancoONegro))
+        } while ((posInicialX < 0 || posInicialX > 7) || (posInicialY < 0 || posInicialY > 7) || tablero.tablero[posInicialY][posInicialX] == null || (tablero.tablero[posInicialY][posInicialX]?.blancaONegra != tablero.turnoBlancoONegro))
 
         return Pair(posInicialY, posInicialX)
     }

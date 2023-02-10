@@ -1,17 +1,15 @@
-class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
-    Ficha(blanca_o_negra, posicion, seleccionada) {
+package Modelo
 
+import Controlador.Posicion
+import Controlador.Tablero
+
+class Rei(blancaONegra: Boolean, posicion: Posicion, seleccionada: Boolean) : Ficha(blancaONegra, posicion, seleccionada) {
     fun movimientoRei(tablero: Tablero){
         var posFinalY = -1
         var posFinalX = -1
         // COMPROBEM SI LA FILA Y COLUMNA ON VOLEM MOURE EL REI ESTA DINS DE L ARRAY DEL TABLERO
         // COMPROBEM QUE EL MOVIMENT ES PUGUI REALITZAR A TRAVES DE LA FUNCIÓ: POSIBILIDADESMOVIMIENTOREI()
-        while ((posFinalX < 0 || posFinalX > 7) || (posFinalY < 0 || posFinalY > 7) || !(posibilidadesMovimientoRei(
-                posFinalY,
-                posFinalX,
-                tablero
-            ))
-        ) { // PARA EVITAR QUE DE ERROR SI EL USUARIO ESCRIBE UNA CASILLA INVÁLIDA (POR EJEMPLO: P, o -1)
+        while ((posFinalX < 0 || posFinalX > 7) || (posFinalY < 0 || posFinalY > 7) || !(posibilidadesMovimientoRei(posFinalY, posFinalX, tablero))) { // PARA EVITAR QUE DE ERROR SI EL USUARIO ESCRIBE UNA CASILLA INVÁLIDA (POR EJEMPLO: P, o -1)
             // JAQUE ES IGUAL A FALSE
             println("------------------------------------------------------------------")
             print("|SI DESEA ELEJIR OTRA PIEZA PULSE [b] SINO PULSE CUALQUIER TECLA: ")
@@ -39,7 +37,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
 
         val elementoCasillaQueInvadimos = tablero[posFinalY, posFinalX]
         // PARA PODER HACER QUE HAYA JAQUE YA QUE UN PEON PODRÍA ADELANTAR 2C YA QUE EL MOVIMIENTO DEL REI AUN NO SE HA ECHO
-        val auxReiComJaque = Rei(blanca_o_negra, Posicion(posFinalY, posFinalX), false)
+        val auxReiComJaque = Rei(blancaONegra, Posicion(posFinalY, posFinalX), false)
         tablero.tablero[posFinalY][posFinalX] = auxReiComJaque
         tablero.tablero[posicionFicha.fila][posicionFicha.columna] = null
 
@@ -55,8 +53,8 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
     }
 
     fun posibilidadesMovimientoRei(posFinalY: Int, posFinalX: Int, tablero: Tablero): Boolean {
-        if (blanca_o_negra) { // REI BLANCO
-            if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+        if (blancaONegra) { // REI BLANCO
+            if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT VERTICAL I CAP ABAIX DEL REI
                 return true
@@ -66,7 +64,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. COLUMNA FINAL DE LA FICHA == COLUMNA INICIAL DE LA FICHA
                 // 2. FILA FINAL DE LA FICHA > FILA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
-            } else if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT VERTICAL I CAP ADALT DEL REI
                 return true
@@ -76,7 +74,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. COLUMNA FINAL DE LA FICHA == COLUMNA INICIAL DE LA FICHA
                 // 2. FILA FINAL DE LA FICHA < FILA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
-            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT HORITZONTAL I CAP A LA DRETA DEL REI
                 return true
@@ -85,7 +83,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. FILA FINAL DE LA FICHA == FILA INICIAL DE LA FICHA
                 // 2. COLUMNA FINAL DE LA FICHA > COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
-            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT HORITZONTAL I CAP A L'ESQUERRA DEL REI
                 return true
@@ -94,7 +92,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. FILA FINAL DE LA FICHA == FILA INICIAL DE LA FICHA
                 // 2. COLUMNA FINAL DE LA FICHA < COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
-            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL AMUNT ESQUERRA
                 return true
@@ -105,7 +103,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 3. COLUMNA FINAL DE LA FICHA < COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
 
-            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL AMUNT DRETA
                 return true
@@ -116,7 +114,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 3. COLUMNA FINAL DE LA FICHA > COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
 
-            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL ABAIX DRETA
                 return true
@@ -126,7 +124,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 2. FILA FINAL DE LA FICHA > FILA INICIAL DE LA FICHA
                 // 3. COLUMNA FINAL DE LA FICHA > COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA NEGRA
-            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == false || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == false || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL ABAIX ESQUERRA
                 return true
@@ -139,7 +137,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
             }
         } else {
             // REI NEGRO
-            if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT VERTICAL I CAP ABAIX DEL REI
                 return true
@@ -149,7 +147,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. COLUMNA FINAL DE LA FICHA == COLUMNA INICIAL DE LA FICHA
                 // 2. FILA FINAL DE LA FICHA > FILA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
-            } else if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalX == posicionFicha.columna && posFinalY == posicionFicha.fila - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT VERTICAL I CAP ADALT DEL REI
                 return true
@@ -159,7 +157,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. COLUMNA FINAL DE LA FICHA == COLUMNA INICIAL DE LA FICHA
                 // 2. FILA FINAL DE LA FICHA < FILA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
-            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT HORITZONTAL I CAP A LA DRETA DEL REI
                 return true
@@ -168,7 +166,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. FILA FINAL DE LA FICHA == FILA INICIAL DE LA FICHA
                 // 2. COLUMNA FINAL DE LA FICHA > COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
-            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT HORITZONTAL I CAP A L'ESQUERRA DEL REI
                 return true
@@ -177,7 +175,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 1. FILA FINAL DE LA FICHA == FILA INICIAL DE LA FICHA
                 // 2. COLUMNA FINAL DE LA FICHA < COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
-            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL AMUNT ESQUERRA
                 return true
@@ -188,7 +186,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 3. COLUMNA FINAL DE LA FICHA < COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
 
-            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila - 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL AMUNT DRETA
                 return true
@@ -199,7 +197,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 3. COLUMNA FINAL DE LA FICHA > COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
 
-            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna + 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL ABAIX DRETA
                 return true
@@ -209,7 +207,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 // 2. FILA FINAL DE LA FICHA > FILA INICIAL DE LA FICHA
                 // 3. COLUMNA FINAL DE LA FICHA > COLUMNA INICIAL DE LA FICHA
                 // 3. QUE LA POSICIÓ FINAL DE LA FICHA SIGUI NULLA O HI HAGI UNA FICHA BLANCA
-            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blanca_o_negra == true || tablero[posFinalY, posFinalX] == null)) {
+            } else if (posFinalY == posicionFicha.fila + 1 && posFinalX == posicionFicha.columna - 1 && (tablero[posFinalY, posFinalX]?.blancaONegra == true || tablero[posFinalY, posFinalX] == null)) {
 
                 // MOVIMENT REI DIAGONAL ABAIX ESQUERRA
                 return true
@@ -232,7 +230,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
         if (tablero.turnoBlancoONegro) {
             for (i in 0 until tablero.numFilas) {
                 for (j in 0 until tablero.numColumnas) {
-                    if (tablero.tablero[i][j] is Rei && tablero.tablero[i][j]?.blanca_o_negra == true) {
+                    if (tablero.tablero[i][j] is Rei && tablero.tablero[i][j]?.blancaONegra == true) {
                         posYRei = i
                         posXRei = j
                     }
@@ -241,7 +239,7 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
         } else {
             for (i in 0 until tablero.numFilas) {
                 for (j in 0 until tablero.numColumnas) {
-                    if (tablero.tablero[i][j] is Rei && tablero.tablero[i][j]?.blanca_o_negra == false) {
+                    if (tablero.tablero[i][j] is Rei && tablero.tablero[i][j]?.blancaONegra == false) {
                         posYRei = i
                         posXRei = j
                     }
@@ -296,22 +294,22 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 for (j in 0 until tablero.numColumnas) {
                     val ficha = tablero.tablero[i][j]
                     if (ficha != null) { // SI LA POSICIÓN DEL TABLERO NO ESTA NULA NI HAY UN REI (COMPROBAR PQ CREO QUE EVITO EL JAQUE DEL OTRO REI)
-                        if (ficha is Peon && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoPeon(movimentYFinal, movimentXFinal, tablero)) {
+                        if (ficha is Peon && !ficha.blancaONegra && ficha.posibilidadesMovimientoPeon(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true // JAQUE
-                        } else if (ficha is Torre && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoTorre(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Torre && !ficha.blancaONegra && ficha.posibilidadesMovimientoTorre(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Alfil && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoAlfil(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Alfil && !ficha.blancaONegra && ficha.posibilidadesMovimientoAlfil(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Caballo && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoCaballo(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Caballo && !ficha.blancaONegra && ficha.posibilidadesMovimientoCaballo(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Reina && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoReina(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Reina && !ficha.blancaONegra && ficha.posibilidadesMovimientoReina(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Rei && !ficha.blanca_o_negra && ficha.posibilidadesMovimientoRei(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Rei && !ficha.blancaONegra && ficha.posibilidadesMovimientoRei(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
                         }
@@ -323,22 +321,22 @@ class Rei(blanca_o_negra: Boolean, posicion: Posicion, seleccionada: Boolean) :
                 for (j in 0 until tablero.numColumnas) {
                     val ficha = tablero.tablero[i][j]
                     if (ficha != null) { // SI LA POSICIÓN DEL TABLERO NO ESTA NULA NI HAY UN REI (COMPROBAR PQ CREO QUE EVITO EL JAQUE DEL OTRO REI)
-                        if (ficha is Peon && ficha.blanca_o_negra && ficha.posibilidadesMovimientoPeon(movimentYFinal, movimentXFinal, tablero)) {
+                        if (ficha is Peon && ficha.blancaONegra && ficha.posibilidadesMovimientoPeon(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Torre && ficha.blanca_o_negra && ficha.posibilidadesMovimientoTorre(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Torre && ficha.blancaONegra && ficha.posibilidadesMovimientoTorre(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Alfil && ficha.blanca_o_negra && ficha.posibilidadesMovimientoAlfil(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Alfil && ficha.blancaONegra && ficha.posibilidadesMovimientoAlfil(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Caballo && ficha.blanca_o_negra && ficha.posibilidadesMovimientoCaballo(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Caballo && ficha.blancaONegra && ficha.posibilidadesMovimientoCaballo(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Reina && ficha.blanca_o_negra && ficha.posibilidadesMovimientoReina(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Reina && ficha.blancaONegra && ficha.posibilidadesMovimientoReina(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
-                        } else if (ficha is Rei && ficha.blanca_o_negra && ficha.posibilidadesMovimientoRei(movimentYFinal, movimentXFinal, tablero)) {
+                        } else if (ficha is Rei && ficha.blancaONegra && ficha.posibilidadesMovimientoRei(movimentYFinal, movimentXFinal, tablero)) {
 
                             return true
                         }
